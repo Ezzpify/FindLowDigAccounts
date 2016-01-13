@@ -1,4 +1,7 @@
 ﻿using System.Threading;
+using Newtonsoft.Json;
+using System.IO;
+using System;
 
 namespace LowDig
 {
@@ -7,8 +10,57 @@ namespace LowDig
         /// <summary>
         /// Private variables
         /// </summary>
-        private static Session session;
-        private static Config.Settings settings;
+        private static Session mSession;
+        private static Config.Settings mSettings;
+
+
+        /// <summary>
+        /// Reads the settings
+        /// </summary>
+        /// <returns>Returns false if no file found</returns>
+        private static bool ReadSettings()
+        {
+            string settingsPath = "Settings.json";
+            if (!File.Exists(settingsPath))
+            {
+                /*File doesn't exist, we'll create it here*/
+                var settingsClass = new Config.Settings()
+                {
+                    startId = 5000,
+                    endId = 10000,
+                    threadCount = 3
+                };
+
+                /*Write file*/
+                string djson = JsonConvert.SerializeObject(settingsClass, Formatting.Indented);
+                File.WriteAllText("Settings.json", djson);
+                Console.WriteLine("Settings.json has been written. Go edit it.");
+                Thread.Sleep(1500);
+            }
+            else
+            {
+                /*File exist, so we'll parse the information here*/
+                string setJson = File.ReadAllText("Settings.json");
+                if (!string.IsNullOrWhiteSpace(setJson))
+                {
+                    try
+                    {
+                        mSettings = JsonConvert.DeserializeObject<Config.Settings>(setJson);
+                        return true;
+                    }
+                    catch (JsonException jEx)
+                    {
+                        /*Incorrect format probably*/
+                        Console.WriteLine("Error parsing Settings.json");
+                        Console.WriteLine(jEx.ToString());
+                        Thread.Sleep(5000);
+                    }
+                }
+            }
+
+
+            return false;
+        }
 
 
         /// <summary>
@@ -18,18 +70,15 @@ namespace LowDig
         /// <param name="args">No args</param>
         static void Main(string[] args)
         {
-            /*Set settings - Change here*/
-            settings = new Config.Settings()
-            {
-                startId     = 5000,
-                endId       = 10000,
-                threadCount = 5
-            };
+            /*Read settings*/
+            if (!ReadSettings())
+                return;
 
             /*Start session*/
-            session = new Session(settings);
+            mSession = new Session(mSettings);
 
             /*Keep us alive*/
+            Console.Title = "Zute | Tool to find low dig steam accounts";
             while (true) { Thread.Sleep(500); }
         }
     }
