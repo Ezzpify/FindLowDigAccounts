@@ -82,12 +82,17 @@ namespace LowDig
                     /*String get guessed hotmail*/
                     if (!string.IsNullOrEmpty(accountName))
                     {
-                        /*Set up account class*/
-                        account.username = accountName;
-                        account.email = string.Format("{0}@hotmail.com", accountName);
+                        /*Check if email looks okay*/
+                        string email = string.Format("{0}@hotmail.com", accountName);
+                        if (Functions.IsProperEmail(email))
+                        {
+                            /*Set up account class*/
+                            account.username = accountName;
+                            account.email = string.Format("{0}@hotmail.com", accountName);
 
-                        /*Log account*/
-                        mLog.Write(account);
+                            /*Log account*/
+                            mLog.Write(account);
+                        }
                     }
                 }
 

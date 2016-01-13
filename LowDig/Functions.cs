@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace LowDig
 {
@@ -36,6 +37,18 @@ namespace LowDig
                 }
             }
             return string.Empty;
+        }
+
+
+        /// <summary>
+        /// Checks if an email adress looks okay
+        /// </summary>
+        /// <param name="str">String to check</param>
+        /// <returns>Returns true if email looks ok</returns>
+        public static bool IsProperEmail(string str)
+        {
+            return Regex.IsMatch(str, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z",
+                RegexOptions.IgnoreCase);
         }
     }
 }
