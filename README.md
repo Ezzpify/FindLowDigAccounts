@@ -5,7 +5,7 @@ This will find Steam accounts within the given id range that has not yet set up 
 
 Since Hotmail purged a lot of the inactive emails, you can simply create a new email with the same email as the account name and recover the password for the steam account that way.
 
-Credits to lurkeryuri for original idea (assuming it was his code)
+Credits for the original idea goes to lukeryuri/phoenixdoom. They have their own project that I recommend you also check out! https://github.com/hvze/steam-gen
 
 ![Preview](http://i.imgur.com/dcR25er.gif)
 
