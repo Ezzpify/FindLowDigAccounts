@@ -78,8 +78,11 @@ namespace LowDig
             mSession = new Session(mSettings);
 
             /*Keep us alive*/
-            Console.Title = "Zute | Tool to find low dig steam accounts";
-            while (true) { Thread.Sleep(500); }
+            while (true)
+            {
+                Console.Title = string.Format("Zute | LogDig | Accounts found: {0}", mSession.mAccountsFound);
+                Thread.Sleep(1000);
+            }
         }
     }
 }

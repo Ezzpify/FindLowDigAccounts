@@ -16,6 +16,12 @@ namespace LowDig
 
 
         /// <summary>
+        /// Public variables
+        /// </summary>
+        public int mAccountsFound;
+
+
+        /// <summary>
         /// Class constructor
         /// </summary>
         public Session(Config.Settings settings)
@@ -37,9 +43,7 @@ namespace LowDig
         private void Work()
         {
             /*Initialize our semapore with the settings that was passed*/
-            mSem = new Semaphore(
-                mSettings.threadCount, 
-                mSettings.threadCount);
+            mSem = new Semaphore(mSettings.threadCount, mSettings.threadCount);
 
             /*Go through the steam accounts*/
             for (int i = mSettings.startId; i < mSettings.endId; i++)
@@ -49,7 +53,7 @@ namespace LowDig
             }
 
             /*Done checking*/
-            Console.WriteLine("\nFinished");
+            Console.WriteLine("\n\nFinished");
             mLog.FlushLog(true);
         }
 
@@ -68,6 +72,8 @@ namespace LowDig
                 /*Get steamId64 and request the community page*/
                 string steamId = string.Format("STEAM_0:0:{0}", iDigit);
                 Console.WriteLine(string.Format("Checking {0} ...", steamId));
+
+                /*Download community page*/
                 string communityString = Website.DownloadString(
                     string.Format("http://steamcommunity.com/profiles/{0}",
                     Functions.ConvertToSteam64(steamId)));
@@ -87,12 +93,13 @@ namespace LowDig
                         if (Functions.IsProperEmail(email))
                         {
                             /*Set up account class*/
-                            account.username = accountName;
-                            account.email = string.Format("{0}@hotmail.com", accountName);
                             account.steamid = steamId;
+                            account.username = accountName;
+                            account.email = email;
 
                             /*Log account*/
                             mLog.Write(account);
+                            mAccountsFound++;
                         }
                     }
                 }
