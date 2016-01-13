@@ -59,7 +59,7 @@ namespace LowDig
         public void FlushLog(bool ignoreCondition = false)
         {
             /*If we don't have enough entries to flush, return*/
-            if (!ignoreCondition || logQueue.Count < logQueueSize)
+            if (ignoreCondition || logQueue.Count < logQueueSize)
                 return;
 
             /*Log entries*/
