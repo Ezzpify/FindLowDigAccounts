@@ -69,7 +69,7 @@ namespace LowDig
                 /*Account holder*/
                 var account = new Config.Account();
 
-                /*Get steamId64 and request the community page*/
+                /*Format the steamid*/
                 string steamId = string.Format("STEAM_0:0:{0}", iDigit);
                 Console.WriteLine(string.Format("Checking {0} ...", steamId));
 
@@ -84,8 +84,6 @@ namespace LowDig
                     /*Get account name from page*/
                     string accountName = Functions.GetStringBetween(communityString, "<title>", "</title>");
                     accountName = accountName.Replace("Steam Community :: ", "");
-
-                    /*String get guessed hotmail*/
                     if (!string.IsNullOrEmpty(accountName))
                     {
                         /*Check if email looks okay*/
