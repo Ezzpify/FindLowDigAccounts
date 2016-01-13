@@ -46,7 +46,10 @@ namespace LowDig
             Console.WriteLine("Found account: {0}", account.username);
 
             /*Add account to queue*/
-            string logMessage = string.Format("{0}\n{1}\n", account.username, account.email);
+            string logMessage = string.Format("{0}\n{1}\n{2}\n", 
+                account.username, 
+                account.email, 
+                account.steamid);
             logQueue.Add(logMessage);
             FlushLog();
         }

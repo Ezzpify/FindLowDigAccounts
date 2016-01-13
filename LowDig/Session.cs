@@ -89,6 +89,7 @@ namespace LowDig
                             /*Set up account class*/
                             account.username = accountName;
                             account.email = string.Format("{0}@hotmail.com", accountName);
+                            account.steamid = steamId;
 
                             /*Log account*/
                             mLog.Write(account);
