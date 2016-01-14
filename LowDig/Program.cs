@@ -33,8 +33,8 @@ namespace LowDig
             while (true)
             {
                 /*Update title with number of account found from session*/
-                Console.Title = string.Format("Zute | LogDig | Accounts found: {0}", mSession.mAccountsFound);
-                Thread.Sleep(1000);
+                Console.Title = string.Format("Zute | LowDig | Accounts found: {0}", mSession.mAccountsFound);
+                Thread.Sleep(100);
             }
         }
     }

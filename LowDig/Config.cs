@@ -9,7 +9,7 @@
         {
             public int startId { get; set; }
             public int endId { get; set; }
-            public int threadCount { get; set; }
+            public int requestLimit { get; set; }
         }
 
 

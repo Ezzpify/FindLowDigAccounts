@@ -13,10 +13,11 @@ namespace LowDig
         /// <returns>Returns null if settings was not read</returns>
         public static Config.Settings Read()
         {
-            if (File.Exists("Settings.json"))
+            string fileName = "Settings.json";
+            if (File.Exists(fileName))
             {
                 /*File exist, so we'll parse the information here*/
-                string setJson = File.ReadAllText("Settings.json");
+                string setJson = File.ReadAllText(fileName);
                 if (!string.IsNullOrWhiteSpace(setJson))
                 {
                     try
@@ -27,7 +28,8 @@ namespace LowDig
                     catch (JsonException jEx)
                     {
                         /*Incorrect format probably*/
-                        Console.WriteLine("Error parsing Settings.json\n{0}", jEx.ToString());
+                        Console.WriteLine("Error parsing {0}\n{1}", fileName, jEx.ToString());
+                        File.Delete(fileName);
                         Thread.Sleep(1500);
                     }
                 }
@@ -40,13 +42,13 @@ namespace LowDig
                     /*Temp values*/
                     startId = 5000,
                     endId = 10000,
-                    threadCount = 5
+                    requestLimit = 50
                 };
 
                 /*Write file*/
                 string djson = JsonConvert.SerializeObject(settingsClass, Formatting.Indented);
-                Console.WriteLine("Settings.json has been written. Edit the settings and launch the program again.");
-                File.WriteAllText("Settings.json", djson);
+                Console.WriteLine("{0} has been written. Edit the settings and launch the program again.", fileName);
+                File.WriteAllText(fileName, djson);
                 Thread.Sleep(1500);
             }
             
