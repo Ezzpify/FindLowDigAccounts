@@ -106,7 +106,7 @@ namespace LowDig
                     string accountName = Functions.GetStringBetween(pageSource, "<title>", "</title>")
                         .Replace("Steam Community :: ", "");
 
-                    if (!string.IsNullOrEmpty(accountName))
+                    if (!string.IsNullOrEmpty(accountName) && accountName.Length > 5)
                     {
                         /*Format email and check if it looks okay*/
                         string accountEmail = string.Format("{0}@hotmail.com", accountName);
