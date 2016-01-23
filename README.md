@@ -15,7 +15,7 @@ Version 2: (gif theme: https://www.youtube.com/watch?v=VTHsOSGJHN0)
 
 ![Version 2](http://i.imgur.com/7rWbmJl.gif)
 
-
+[![ScreenShot](http://i.imgur.com/yyNiDSR.png)](http://youtu.be/kG-_8CfAyY0)
 
 Log file:
 ```
