@@ -20,6 +20,8 @@ namespace LowDig
         /// Public variables
         /// </summary>
         public int mAccountsFound;
+        public int mAccountsChecked;
+        public int mCurrentId;
 
 
         /// <summary>
@@ -50,11 +52,12 @@ namespace LowDig
             for (int i = mSettings.startId; i < mSettings.endId; i++)
             {
                 mSem.WaitOne();
+                mCurrentId = i;
                 QueryProfile(i);
             }
 
             /*Done checking*/
-            Console.WriteLine("\n\nFinished");
+            Console.WriteLine("\n\nFinished\n\n");
             mLog.FlushLog(true);
         }
 
@@ -74,7 +77,6 @@ namespace LowDig
                 string communityUrl = string.Format("http://steamcommunity.com/profiles/{0}", steamId64);
 
                 /*Download page async*/
-                Console.WriteLine("Checking {0} ...", steamId);
                 using (WebClient wc = new WebClient())
                 {
                     wc.DownloadStringCompleted += (sender, e) => { ParseResponse(sender, e, steamId); };
@@ -82,6 +84,7 @@ namespace LowDig
                     wc.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                     wc.DownloadStringAsync(new Uri(communityUrl));
                 }
+                mAccountsChecked++;
             }
             catch(WebException ex)
             {
