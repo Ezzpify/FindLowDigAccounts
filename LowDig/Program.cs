@@ -24,7 +24,7 @@ namespace LowDig
             Console.WriteLine("Fork of https://github.com/Ezzpify/FindLowDigAccounts/");
             Console.WriteLine("");
 
-            ///*Read settings*/
+            /*Read settings*/
             mSettings = Settings.Read();
 
             /*Settings was not read, return*/
