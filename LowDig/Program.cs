@@ -24,32 +24,30 @@ namespace LowDig
             Console.WriteLine("Fork of https://github.com/Ezzpify/FindLowDigAccounts/");
             Console.WriteLine("");
 
-            Console.WriteLine(Functions.IsProperEmail("gsfdgsdfg@hotmail.com"));
-            Thread.Sleep(1000);
             ///*Read settings*/
-            //mSettings = Settings.Read();
+            mSettings = Settings.Read();
 
-            ///*Settings was not read, return*/
-            //if (mSettings == null)
-            //    return;
+            /*Settings was not read, return*/
+            if (mSettings == null)
+                return;
 
-            ///*Start session*/
-            //mSession = new Session(mSettings);
+            /*Start session*/
+            mSession = new Session(mSettings);
 
-            ///*Keep us alive*/
-            //while (true)
-            //{
-            //    /*Update title with information from current session*/
-            //    if (mSession.mAccountsChecked > 0)
-            //    {
-            //        double finishPercent = 100 * ((mSession.mCurrentId - mSettings.startId) / (double) (mSettings.endId - mSettings.startId));
-            //        double successPercent = 100 * (mSession.mAccountsFound / (double) mSession.mAccountsChecked);
-            //        finishPercent = Math.Round(finishPercent, 2);
-            //        successPercent = Math.Round(successPercent, 2);
-            //        Console.Title = string.Format("{1}/{2} ({3}%) finished, with a {0}/{1} ({4}%) success rate | Steam Account Finder", mSession.mAccountsFound, mSession.mAccountsChecked, mSettings.endId - mSettings.startId, finishPercent, successPercent);
-            //    }
-            //    Thread.Sleep(100);
-            //}
+            /*Keep us alive*/
+            while (true)
+            {
+                /*Update title with information from current session*/
+                if (mSession.mAccountsChecked > 0)
+                {
+                    double finishPercent = 100 * ((mSession.mCurrentId - mSettings.startId) / (double)(mSettings.endId - mSettings.startId));
+                    double successPercent = 100 * (mSession.mAccountsFound / (double)mSession.mAccountsChecked);
+                    finishPercent = Math.Round(finishPercent, 2);
+                    successPercent = Math.Round(successPercent, 2);
+                    Console.Title = string.Format("{1}/{2} ({3}%) finished, with a {0}/{1} ({4}%) success rate | Steam Account Finder", mSession.mAccountsFound, mSession.mAccountsChecked, mSettings.endId - mSettings.startId, finishPercent, successPercent);
+                }
+                Thread.Sleep(100);
+            }
         }
     }
 }
