@@ -30,7 +30,7 @@ namespace LowDig
             if (!File.Exists(logPath))
             {
                 File.Create(logPath).Close();
-                Console.WriteLine("Log file created");
+                Console.WriteLine("File \"" + logPath + "\" has been created.");
                 Thread.Sleep(250);
             }
         }
