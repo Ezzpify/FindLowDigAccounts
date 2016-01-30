@@ -57,7 +57,7 @@ namespace LowDig
             }
 
             /*Done checking*/
-            Console.WriteLine("\n\nFinished");
+            Console.WriteLine("\n\nFinished\n\n");
             mLog.FlushLog(true);
         }
 
