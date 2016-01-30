@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.IO;
@@ -43,14 +43,10 @@ namespace LowDig
         public void Write(Config.Account account)
         {
             /*Write notice*/
-            Console.WriteLine("Found account: {0}", account.username);
+            Console.WriteLine("{0} {1}", account.steamid, account.username);
 
             /*Add account to queue*/
-            string logMessage = string.Format("{0}\n{1}\n{2}\n", 
-                account.username, 
-                account.email, 
-                account.steamid);
-            logQueue.Add(logMessage);
+            logQueue.Add(account.email);
             FlushLog();
         }
 
