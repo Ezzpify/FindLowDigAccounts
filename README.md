@@ -7,17 +7,11 @@ Since Hotmail purged a lot of the inactive emails, you can simply create a new e
 
 Credits for the original idea goes to lukeryuri/phoenixdoom. They have their own project that I recommend you also check out! https://github.com/hvze/steam-gen
 
-Version 1:
-
-![Version 1](http://i.imgur.com/dcR25er.gif)
-
-Version 2: (gif theme: https://www.youtube.com/watch?v=VTHsOSGJHN0)
-
 ![Version 2](http://i.imgur.com/7rWbmJl.gif)
 
 [![ScreenShot](http://i.imgur.com/yyNiDSR.png)](http://youtu.be/kG-_8CfAyY0)
 
-Log file:
+Log file example:
 ```
 ChrisRPG
 ChrisRPG@hotmail.com
