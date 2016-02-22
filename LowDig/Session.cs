@@ -83,7 +83,8 @@ namespace LowDig
             for (int i = mSettings.startId; i < mSettings.endId; i++)
             {
                 mSem.WaitOne();
-                QueryProfile(i);
+                QueryProfile(0, i);
+                QueryProfile(1, i);
             }
 
             /*Done checking*/
@@ -96,13 +97,14 @@ namespace LowDig
         /// Queries a steam profile async
         /// Passes response to ParseResponse()
         /// </summary>
+        /// <param name="server">Steam account server (0 or 1)</param>
         /// <param name="steamDigit">Steam Digit to query (ex 6000)</param>
-        private void QueryProfile(int steamDigit)
+        private void QueryProfile(int server, int steamDigit)
         {
             try
             {
                 /*Set up local vars for request*/
-                string steamId = string.Format("STEAM_0:0:{0}", steamDigit);
+                string steamId = string.Format("STEAM_0:{0}:{1}", server, steamDigit);
                 string steamId64 = Functions.ConvertToSteam64(steamId);
                 string communityUrl = string.Format("http://steamcommunity.com/profiles/{0}", steamId64);
 
