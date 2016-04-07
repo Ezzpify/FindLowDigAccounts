@@ -134,11 +134,11 @@ namespace LowDig
         {
             if (!Functions.IsProperEmail(address))
                 return false;
+            
+            if (mSettings.checkHotmail && !Hotmail.IsAvailable(address))
+                return false;
 
-            if (mSettings.checkHotmail && Hotmail.IsAvailable(address))
-                return true;
-
-            return false;
+            return true;
         }
 
 
@@ -158,7 +158,7 @@ namespace LowDig
                     string accountName = Functions.GetStringBetween(pageSource, "<title>", "</title>")
                         .Replace("Steam Community :: ", "");
 
-                    if (!string.IsNullOrEmpty(accountName) && accountName.Length > 5)
+                    if (!string.IsNullOrEmpty(accountName) && accountName.Length >= 3)
                     {
                         /*Format email and check if it looks okay*/
                         string accountEmail = string.Format("{0}@hotmail.com", accountName);
