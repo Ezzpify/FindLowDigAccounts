@@ -7,8 +7,6 @@ Credits for the original idea goes to lukeryuri/phoenixdoom. They have their own
 
 ![Version 2](http://i.imgur.com/7rWbmJl.gif)
 
-[![ScreenShot](http://i.imgur.com/yyNiDSR.png)](http://youtu.be/kG-_8CfAyY0)
-
 Log file example:
 ```
 ChrisRPG
