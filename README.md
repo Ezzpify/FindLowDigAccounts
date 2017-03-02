@@ -1,5 +1,4 @@
 # FindLowDigAccounts
-Made by Zute/Ezzpify
 
 This will scan Steam accounts within a certain range and if they have no set up their Steam Community profile then it will log that account Steam id. I am not responsible for what you do with this.
 
