@@ -1,3 +1,7 @@
+# This is an old project
+
+Sorry to dissapoint in case you arrived late to the party, but do not expect this to work. While I haven't ran this program in about 6 years, I assume it can still scan for accounts; however I don't expect that you can do much with the output.
+
 # FindLowDigAccounts
 
 [![License](https://img.shields.io/github/license/Ezzpify/FindLowDigAccounts.svg?label=License&maxAge=86400)](./LICENSE)
