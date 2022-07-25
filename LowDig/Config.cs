@@ -10,7 +10,7 @@
             public int startId { get; set; }
             public int endId { get; set; }
             public int requestLimit { get; set; }
-            public bool checkHotmail { get; set; }
+            public bool emailValidation { get; set; }
         }
 
 
@@ -34,18 +34,6 @@
             public string data { get; set; }
             public bool showError { get; set; }
             public string stackTrace { get; set; }
-        }
-
-
-        /// <summary>
-        /// Hotmail reponse class
-        /// </summary>
-        public class HotmailResponse
-        {
-            public Error error { get; set; }
-            public string apiCanary { get; set; }
-            public bool isAvailable { get; set; }
-            public string type { get; set; }
         }
 
 

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace LowDig
 {
@@ -49,17 +50,14 @@ namespace LowDig
         private void LoadProxies()
         {
             string content = File.ReadAllText("proxies.txt");
-            using (StringReader reader = new StringReader(content))
-            {
+            using (StringReader reader = new StringReader(content)) {
                 string line;
-                while ((line = reader.ReadLine()) != null)
-                {
+                while ((line = reader.ReadLine()) != null) {
                     if (line.Length < 4 || !line.Contains(":"))
                         continue;
 
                     string[] split = line.Split(':');
-                    mProxies.Add(new Config.Proxy()
-                    {
+                    mProxies.Add(new Config.Proxy() {
                         host = split[0],
                         port = Convert.ToInt32(split[1]),
                         uses = 2 /*We get 2 tries per proxy*/
@@ -77,11 +75,9 @@ namespace LowDig
         {
             /*Initialize our semapore with the settings that was passed*/
             mSem = new Semaphore(mSettings.requestLimit, mSettings.requestLimit);
-            Hotmail.GetSession();
 
             /*Go through the steam accounts*/
-            for (int i = mSettings.startId; i < mSettings.endId; i++)
-            {
+            for (int i = mSettings.startId; i < mSettings.endId; i++) {
                 mSem.WaitOne();
                 QueryProfile(0, i);
                 QueryProfile(1, i);
@@ -101,8 +97,7 @@ namespace LowDig
         /// <param name="steamDigit">Steam Digit to query (ex 6000)</param>
         private void QueryProfile(int server, int steamDigit)
         {
-            try
-            {
+            try {
                 /*Set up local vars for request*/
                 string steamId = string.Format("STEAM_0:{0}:{1}", server, steamDigit);
                 string steamId64 = Functions.ConvertToSteam64(steamId);
@@ -110,16 +105,13 @@ namespace LowDig
 
                 /*Download page async*/
                 Console.WriteLine("Checking {0} ...", steamId);
-                using (WebClient wc = new WebClient())
-                {
+                using (WebClient wc = new WebClient()) {
                     wc.DownloadStringCompleted += (sender, e) => { ParseResponse(sender, e, steamId); };
                     wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                     wc.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
                     wc.DownloadStringAsync(new Uri(communityUrl));
                 }
-            }
-            catch(WebException ex)
-            {
+            } catch (WebException ex) {
                 Console.WriteLine("WebException: {0}", ex.Message);
             }
         }
@@ -132,10 +124,14 @@ namespace LowDig
         /// <returns></returns>
         private bool IsEmailGood(string address)
         {
+            if (!mSettings.emailValidation) {
+                return true;
+            }
+
             if (!Functions.IsProperEmail(address))
                 return false;
-            
-            if (mSettings.checkHotmail && !Hotmail.IsAvailable(address))
+
+            if (address.Contains("*") || address.StartsWith("_") || address.StartsWith(".") || address.StartsWith("-") || address.Contains("%") || address.Contains("=") || address.Contains("'") || address.Contains("+") || address.Contains('"'))
                 return false;
 
             return true;
@@ -149,26 +145,20 @@ namespace LowDig
         /// <param name="e">EventArgs - we get page source from result</param>
         private void ParseResponse(object o, DownloadStringCompletedEventArgs e, string steamId)
         {
-            try
-            {
+            try {
                 string pageSource = e.Result;
-                if (pageSource.Contains("This user has not yet set up their Steam Community profile."))
-                {
+                if (pageSource.Contains("This user has not yet set up their Steam Community profile.")) {
                     /*Get the account name from page title*/
                     string accountName = Functions.GetStringBetween(pageSource, "<title>", "</title>")
                         .Replace("Steam Community :: ", "");
 
-                    if (!string.IsNullOrEmpty(accountName) && accountName.Length >= 3)
-                    {
-                        /*Format email and check if it looks okay*/
+                    if (!string.IsNullOrEmpty(accountName) && accountName.Length >= 3) {
                         string accountEmail = string.Format("{0}@hotmail.com", accountName);
 
                         /*If the email is valid and not taken*/
-                        if (IsEmailGood(accountEmail))
-                        {
+                        if (IsEmailGood(accountEmail)) {
                             /*Set up the account*/
-                            var account = new Config.Account()
-                            {
+                            var account = new Config.Account() {
                                 steamid = steamId,
                                 username = accountName,
                                 email = accountEmail
@@ -179,9 +169,7 @@ namespace LowDig
                         }
                     }
                 }
-            }
-            catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 Console.WriteLine("Exception: {0}", ex.Message);
             }
 

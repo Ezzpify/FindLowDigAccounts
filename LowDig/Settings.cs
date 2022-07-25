@@ -43,7 +43,7 @@ namespace LowDig
                     startId = 5000,
                     endId = 10000,
                     requestLimit = 50,
-                    checkHotmail = true
+                    emailValidation = true
                 };
 
                 /*Write file*/

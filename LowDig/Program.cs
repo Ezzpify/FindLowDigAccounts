@@ -31,7 +31,7 @@ namespace LowDig
             while (true)
             {
                 /*Update title with number of account found from session*/
-                Console.Title = string.Format("Zute | LowDig | Accounts found: {0}", mSession.mAccountsFound);
+                Console.Title = string.Format("Zute | LowDig - fork by tarcseh#3400 | Accounts found: {0}", mSession.mAccountsFound);
                 Thread.Sleep(100);
             }
         }
