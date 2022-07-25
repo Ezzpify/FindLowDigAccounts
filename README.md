@@ -1,6 +1,6 @@
-# This is an old project
+# This is a fork of Ezzpify/FindLowDigAccounts
 
-Sorry to dissapoint in case you arrived late to the party, but do not expect this to work. While I haven't ran this program in about 6 years, I assume it can still scan for accounts; however I don't expect that you can do much with the output.
+The original version crashes at launch, this version contains a fix to prevent crashing.
 
 # FindLowDigAccounts
 
